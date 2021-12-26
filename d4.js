@@ -1,40 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { StyleSheet, Button, Text, View } from 'react-native';
+// dice 1 - 4
 
-export default function App() {
+const D4 = ({handleSavedValue, setCurrentValue, currentValue}) => {
   const [d4, setd4] = useState(0);
-  const [currentValue, setCurrentValue] = useState(0);
-  
-  const handleSavedValue = () => {
-
-    setCurrentValue((prev) => {
-      return prev + d4;
-    });
-  }
-
-  
 
   const rolld4 = () => {
-   setd4(Math.floor(Math.random() * 4) + 1);
-   console.log('roll', d4)
+    const d4Int = Math.floor(Math.random() * 4) + 1
+    setd4(d4Int);
+    setCurrentValue(d4Int);
   }
-
 
   return (
     <View style={styles.container}>
-       <StatusBar style="auto" />
-       <Button
+      <Text>D4 Dice</Text>
+      <StatusBar style="auto" />
+      <Button
         title="roll"
         onPress={() => rolld4()}
       />
       <Button
         title="Save Value"
-        onPress={() => handleSavedValue(d4)}
+        onPress={() => handleSavedValue(d4, currentValue)}
       />  
       <Text>value {d4}</Text>
-      <Text>Saved Value: {currentValue}</Text>
     </View>
+    
   );
 }
 
@@ -46,3 +38,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default D4;
