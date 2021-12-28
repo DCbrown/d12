@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { Button, ButtonGroup, withTheme, Text } from 'react-native-elements';
+import { StyleSheet, View, ScrollView,  } from 'react-native';
+import { Button, ButtonGroup, Card, Text } from 'react-native-elements';
 
 export default function App() {
   const [dR, setDR] = useState(0);
@@ -35,6 +35,20 @@ export default function App() {
       break;
       case 5:
       setDice(20)
+      break;
+    }
+  }
+
+  const diceOptions = (value) => {
+    switch(value) {
+      case 0:
+        handleSavedValue(dR)
+      break;
+      case 1:
+        roll(dice)
+      break;
+      case 2:
+        clear()
       break;
     }
   }
@@ -73,44 +87,115 @@ export default function App() {
 return (
   <ScrollView>
     <View style={styles.values}>
-     <Text h4 style={styles.subHeader}>Dice Type:{dice} - Value:{dR} - Saved Value: {currentValue}</Text>
+     <Text h4 style={styles.subHeader}>Saved Value: {currentValue}</Text>
     </View>
-    <View style={styles.container}>
+    <View>
     <ButtonGroup
         buttons={['D4', 'D6', 'D8', 'D10', 'D12', 'D20']}
         selectedIndex={selectedIndex}
         onPress={(value) => {
           setSelectedIndex(value);
           selectDice(value);
-          console.log(dice);
         }}
-        containerStyle={{ marginBottom: 20 }}
+        containerStyle={{ marginBottom: 20, height: 75}}
       />
     </View>  
     <View style={styles.container}>
       <StatusBar style="auto" />
-       <Button
-        title="roll"
-        onPress={() => roll(dice)}
-      />
+      <View style={styles.item}>
+        <Button
+          title="+"
+          titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
+          onPress={() => add()}
+        />  
+      </View>
+      <View style={styles.item}>
+      <Text h1 style={styles.diceValue}>{dR}</Text>
+      </View>
+      <View style={styles.item}>
       <Button
-        title="Save Value"
-        onPress={() => handleSavedValue(dR)}
-      />  
-      <Button
-        title="Clear"
-        onPress={() => clear()}
-      />  
-      <Button
-        title="Add"
-        onPress={() => add()}
-      />  
-      <Button
-        title="Subtract"
+        title="-"
+        titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
         onPress={() => subtract()}
-      />  
+      />
+      </View>
     </View>
-    
+    <ButtonGroup
+        buttons={['Save Value', 'Roll', 'Clear']}
+        onPress={(value) => {
+          diceOptions(value);
+        }}
+        containerStyle={{ marginBottom: 20, height: 100 }}
+      />
+      <View>
+
+      <Card>
+            <Card.Title>P1 Life Counter</Card.Title>
+            <Card.Divider />
+            <View style={styles.container}>
+              <StatusBar style="auto" />
+              <View style={styles.item}>
+                <Button
+                  title="+"
+                  titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
+                  onPress={() => add()}
+                />  
+              </View>
+              <View style={styles.item}>
+              <Text h1 style={styles.diceValue}>{dR}</Text>
+              </View>
+              <View style={styles.item}>
+              <Button
+                title="-"
+                titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
+                onPress={() => subtract()}
+              />
+              </View>
+            </View>
+          </Card>
+
+          <Card>
+            <Card.Title>P2 Life Counter</Card.Title>
+            <Card.Divider />
+            <View style={styles.container}>
+              <StatusBar style="auto" />
+              <View style={styles.item}>
+                <Button
+                  title="+"
+                  titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
+                  onPress={() => add()}
+                />  
+              </View>
+              <View style={styles.item}>
+              <Text h1 style={styles.diceValue}>{dR}</Text>
+              </View>
+              <View style={styles.item}>
+              <Button
+                title="-"
+                titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
+                onPress={() => subtract()}
+              />
+              </View>
+            </View>
+          </Card>
+
+          <Card>
+          <Card.Title>Coin Flip</Card.Title>
+            <Card.Divider />
+            <Text h2 style={{ marginBottom: 10, textAlign : "center", }}>
+              HEADS
+            </Text>
+            <Button
+              buttonStyle={{
+                borderRadius: 0,
+                marginLeft: 0,
+                marginRight: 0,
+                marginBottom: 0,
+              }}
+              title="Flip Coin"
+            />
+          </Card>
+      </View>
     </ScrollView>
   );
 }
@@ -121,9 +206,13 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start', // if you want to fill rows left to right
+    backgroundColor: '#fff',    
+  },
+  controllContainer: {
+    display:"none"
   },
   subHeader: {
     backgroundColor : "#2089dc",
@@ -131,6 +220,16 @@ const styles = StyleSheet.create({
     textAlign : "center",
     paddingVertical : 5,
     marginBottom : 10
+  },
+  item: {
+    width: '33%', // is 50% of container width
+    padding: 10
+  },
+  diceValue: {
+    textAlign : "center",
+    paddingVertical : 5,
+    marginBottom : 10,
+    color: 'black'
   }
 });
 
