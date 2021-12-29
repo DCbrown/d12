@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView,  } from 'react-native';
-import { Button, ButtonGroup, Card, Text } from 'react-native-elements';
+import { StyleSheet, View, ScrollView, Alert  } from 'react-native';
+import { Button, ButtonGroup, Card, Text, Input, } from 'react-native-elements';
 
 export default function App() {
   const [dR, setDR] = useState(0);
@@ -10,6 +10,11 @@ export default function App() {
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   
+  const [p1LifeCounter, setP1LifeCounter] = useState(20);
+  const [p2LifeCounter, setP2LifeCounter] = useState(20);
+
+  const [coin, setCoin] = useState("HEADS");
+
   const handleSavedValue = () => {
     setCurrentValue((prev) => {
       return prev + dR;
@@ -65,7 +70,21 @@ export default function App() {
   }
 
   const clear = () => {
-    setCurrentValue(0);
+    return Alert.alert(
+      "Are your sure?",
+      "Are you sure you want to clear saved value",
+      [
+        {
+          text: "Yes",
+          onPress: () => {
+            setCurrentValue(0);
+          },
+        },
+        {
+          text: "No",
+        },
+      ]
+    );
   }
   
   const add = () => {
@@ -83,8 +102,50 @@ export default function App() {
   }
 
 
+  const addP1 = () => {
+    setP1LifeCounter((prev) => {
+      return prev + 1;
+    });
+  }
+
+  const subtrackP1 = () => {
+    setP1LifeCounter((prev) => {
+      return prev - 1;
+    });
+  }
+
+  const addP2 = () => {
+    setP2LifeCounter((prev) => {
+      return prev + 1;
+    });
+  }
+
+  const subtrackP2 = () => {
+    setP2LifeCounter((prev) => {
+      return prev - 1;
+    });
+  }
+
+  const flipCoin = () => {
+    setCoin("FLIPPING...")
+
+    setTimeout(() => {
+      let coin = Math.floor(Math.random() * 2);
+
+      if (coin == 1 ) {
+        setCoin("HEADS");
+      } else {
+        setCoin("TAILS");
+      }
+      console.log("this is the first message")
+      console.log(coin)
+      console.log("number: ", coin)
+    }, 3000);  
+  }
 
 return (
+  
+
   <ScrollView>
     <View style={styles.values}>
      <Text h4 style={styles.subHeader}>Saved Value: {currentValue}</Text>
@@ -138,17 +199,23 @@ return (
                 <Button
                   title="+"
                   titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
-                  onPress={() => add()}
+                  onPress={() => addP1()}
                 />  
               </View>
               <View style={styles.item}>
-              <Text h1 style={styles.diceValue}>{dR}</Text>
+              <Input
+               keyboardType="numeric"
+               value={JSON.stringify(p1LifeCounter)}
+               onChangeText={value => setP1LifeCounter(Number(value))} 
+               style={{fontSize: 28, textAlign: 'center', paddingTop: 20}}
+               maxLength = {4}
+              />
               </View>
               <View style={styles.item}>
               <Button
                 title="-"
-                titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
-                onPress={() => subtract()}
+                titleStyle={{ fontWeight: 'bold', fontSize: 32, }}
+                onPress={() => subtrackP1()}
               />
               </View>
             </View>
@@ -163,17 +230,23 @@ return (
                 <Button
                   title="+"
                   titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
-                  onPress={() => add()}
+                  onPress={() => addP2()}
                 />  
               </View>
               <View style={styles.item}>
-              <Text h1 style={styles.diceValue}>{dR}</Text>
+              <Input
+               keyboardType="numeric"
+               value={JSON.stringify(p2LifeCounter)}
+               onChangeText={value => setP2LifeCounter(Number(value))} 
+               style={{fontSize: 28, textAlign: 'center', paddingTop: 20}}
+               maxLength = {4}
+              />
               </View>
               <View style={styles.item}>
               <Button
                 title="-"
                 titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
-                onPress={() => subtract()}
+                onPress={() => subtrackP2()}
               />
               </View>
             </View>
@@ -182,8 +255,8 @@ return (
           <Card>
           <Card.Title>Coin Flip</Card.Title>
             <Card.Divider />
-            <Text h2 style={{ marginBottom: 10, textAlign : "center", }}>
-              HEADS
+            <Text h3 style={{ marginBottom: 10, textAlign : "center" }}>
+              {coin}
             </Text>
             <Button
               buttonStyle={{
@@ -193,6 +266,8 @@ return (
                 marginBottom: 0,
               }}
               title="Flip Coin"
+              disabled={coin == "FLIPPING..."}
+              onPress={() => flipCoin()}
             />
           </Card>
       </View>
