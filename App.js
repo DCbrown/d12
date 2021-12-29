@@ -2,23 +2,42 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { StyleSheet, View, ScrollView, Alert  } from 'react-native';
 import { Button, ButtonGroup, Card, Text, Input, } from 'react-native-elements';
+import { Switch } from 'react-native-elements';
 
 export default function App() {
+  const [checked, setChecked] = useState(true);
   const [dR, setDR] = useState(0);
   const [currentValue, setCurrentValue] = useState(0);
   const [dice, setDice] = useState(4);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const [selectedModeIndex, setSelectedModeIndex] = useState(0);
   
   const [p1LifeCounter, setP1LifeCounter] = useState(20);
   const [p2LifeCounter, setP2LifeCounter] = useState(20);
 
-  const [coin, setCoin] = useState("HEADS");
+  const [coin, setCoin] = useState("----");
+
+  const toggleSwitch = () => {
+    setChecked(!checked);
+  };
 
   const handleSavedValue = () => {
     setCurrentValue((prev) => {
       return prev + dR;
     });
+  }
+
+  const selectMode = (value) => {
+    switch(value) {
+      case 0:
+        setChecked(true);
+      break;
+      case 1:
+        setChecked(false);
+      break;
+    }
   }
 
   const selectDice = (value) => {
@@ -109,9 +128,11 @@ export default function App() {
   }
 
   const subtrackP1 = () => {
-    setP1LifeCounter((prev) => {
-      return prev - 1;
-    });
+    if (p1LifeCounter != 0) {
+      setP1LifeCounter((prev) => {
+        return prev - 1;
+      });
+    }
   }
 
   const addP2 = () => {
@@ -121,9 +142,11 @@ export default function App() {
   }
 
   const subtrackP2 = () => {
-    setP2LifeCounter((prev) => {
-      return prev - 1;
-    });
+    if (p2LifeCounter != 0) {
+      setP2LifeCounter((prev) => {
+        return prev - 1;
+      });
+    }
   }
 
   const flipCoin = () => {
@@ -148,6 +171,20 @@ return (
 
   <ScrollView>
     <View style={styles.values}>
+      <Text h4 style={styles.subHeader}>Mode</Text>
+      <ButtonGroup
+        buttons={['TableTop', 'Card']}
+        selectedIndex={selectedModeIndex}
+        onPress={(value) => {
+          setSelectedModeIndex(value);
+          selectMode(value);
+        }}
+        containerStyle={{ marginBottom: 20, height: 75}}
+      />
+      </View>
+     { checked && 
+      <>
+      <View>
      <Text h4 style={styles.subHeader}>Saved Value: {currentValue}</Text>
     </View>
     <View>
@@ -188,8 +225,12 @@ return (
         }}
         containerStyle={{ marginBottom: 20, height: 100 }}
       />
+      </>
+     }
+    
       <View>
-
+      { !checked && 
+      <>
       <Card>
             <Card.Title>P1 Life Counter</Card.Title>
             <Card.Divider />
@@ -270,7 +311,11 @@ return (
               onPress={() => flipCoin()}
             />
           </Card>
+      </>
+      }  
+      
       </View>
+      
     </ScrollView>
   );
 }
