@@ -2,15 +2,15 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { StyleSheet, View, ScrollView, Alert  } from 'react-native';
 import { Button, ButtonGroup, Card, Text, Input, } from 'react-native-elements';
-import { Switch } from 'react-native-elements';
+import CardGame from './components/TableTop';
+import TableTop from './components/CardGame';
+
 
 export default function App() {
-  const [checked, setChecked] = useState(true);
+  const [isTableTop, setisTableTop] = useState(true);
   const [dR, setDR] = useState(0);
-  const [currentValue, setCurrentValue] = useState(0);
+  const [currentSV, setCurrentSV] = useState(0);
   const [dice, setDice] = useState(4);
-
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const [selectedModeIndex, setSelectedModeIndex] = useState(0);
   
@@ -19,25 +19,22 @@ export default function App() {
 
   const [coin, setCoin] = useState("----");
 
-  const toggleSwitch = () => {
-    setChecked(!checked);
-  };
-
-  const handleSavedValue = () => {
-    setCurrentValue((prev) => {
-      return prev + dR;
-    });
-  }
-
   const selectMode = (value) => {
     switch(value) {
       case 0:
-        setChecked(true);
+        setisTableTop(true);
       break;
       case 1:
-        setChecked(false);
+        setisTableTop(false);
       break;
     }
+  }
+
+  /* Dice logic */
+  const handleSavedValue = () => {
+    setCurrentSV((prev) => {
+      return prev + dR;
+    });
   }
 
   const selectDice = (value) => {
@@ -77,12 +74,6 @@ export default function App() {
     }
   }
   
-/*
-  const rolld4 = () => {
-   setd4(Math.floor(Math.random() * 4) + 1);
-   console.log('roll', d4)
-  }
-*/
   const roll = (d) => {
     setDR(Math.floor(Math.random() * d) + 1);
     console.log('roll', dR)
@@ -91,12 +82,12 @@ export default function App() {
   const clear = () => {
     return Alert.alert(
       "Are your sure?",
-      "Are you sure you want to clear saved value",
+      "Clear saved value",
       [
         {
           text: "Yes",
           onPress: () => {
-            setCurrentValue(0);
+            setCurrentSV(0);
           },
         },
         {
@@ -106,20 +97,21 @@ export default function App() {
     );
   }
   
-  const add = () => {
-    setCurrentValue((prev) => {
+  const addSV = () => {
+    setCurrentSV((prev) => {
       return prev + 1;
     });
   }
 
-  const subtract = () => {
-    if (currentValue != 0) {
-      setCurrentValue((prev) => {
+  const subtractSV = () => {
+    if (currentSV != 0) {
+      setCurrentSV((prev) => {
         return prev - 1;
       });
     }
   }
 
+  /* TT Logic */
 
   const addP1 = () => {
     setP1LifeCounter((prev) => {
@@ -160,179 +152,46 @@ export default function App() {
       } else {
         setCoin("TAILS");
       }
-      console.log("this is the first message")
-      console.log(coin)
       console.log("number: ", coin)
     }, 3000);  
   }
 
 return (
-  
-
-  <ScrollView>
-    <View style={styles.values}>
+  <>
+    <StatusBar/>
+    {/* TODO: remove inline styles and add stylesheet */}
+    {/* MODE SELECTION -- TODO: Make me a component! */}
+    <View style={styles.modeWrapper}>
       <Text h4 style={styles.subHeader}>Mode</Text>
       <ButtonGroup
-        buttons={['TableTop', 'Card']}
+        buttons={['Table Top', 'Card Game']}
         selectedIndex={selectedModeIndex}
         onPress={(value) => {
           setSelectedModeIndex(value);
           selectMode(value);
         }}
-        containerStyle={{ marginBottom: 20, height: 75}}
+        containerStyle={styles.modeBtnGroup}
       />
       </View>
-     { checked && 
-      <>
-      <View>
-     <Text h4 style={styles.subHeader}>Saved Value: {currentValue}</Text>
-    </View>
-    <View>
-    <ButtonGroup
-        buttons={['D4', 'D6', 'D8', 'D10', 'D12', 'D20']}
-        selectedIndex={selectedIndex}
-        onPress={(value) => {
-          setSelectedIndex(value);
-          selectDice(value);
-        }}
-        containerStyle={{ marginBottom: 20, height: 75}}
-      />
-    </View>  
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <View style={styles.item}>
-        <Button
-          title="+"
-          titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
-          onPress={() => add()}
-        />  
-      </View>
-      <View style={styles.item}>
-      <Text h1 style={styles.diceValue}>{dR}</Text>
-      </View>
-      <View style={styles.item}>
-      <Button
-        title="-"
-        titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
-        onPress={() => subtract()}
-      />
-      </View>
-    </View>
-    <ButtonGroup
-        buttons={['Save Value', 'Roll', 'Clear']}
-        onPress={(value) => {
-          diceOptions(value);
-        }}
-        containerStyle={{ marginBottom: 20, height: 100 }}
-      />
-      </>
+     { isTableTop && 
+      <CardGame />
      }
-    
       <View>
-      { !checked && 
-      <>
-      <Card>
-            <Card.Title>P1 Life Counter</Card.Title>
-            <Card.Divider />
-            <View style={styles.container}>
-              <StatusBar style="auto" />
-              <View style={styles.item}>
-                <Button
-                  title="+"
-                  titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
-                  onPress={() => addP1()}
-                />  
-              </View>
-              <View style={styles.item}>
-              <Input
-               keyboardType="numeric"
-               value={JSON.stringify(p1LifeCounter)}
-               onChangeText={value => setP1LifeCounter(Number(value))} 
-               style={{fontSize: 28, textAlign: 'center', paddingTop: 20}}
-               maxLength = {4}
-              />
-              </View>
-              <View style={styles.item}>
-              <Button
-                title="-"
-                titleStyle={{ fontWeight: 'bold', fontSize: 32, }}
-                onPress={() => subtrackP1()}
-              />
-              </View>
-            </View>
-          </Card>
-
-          <Card>
-            <Card.Title>P2 Life Counter</Card.Title>
-            <Card.Divider />
-            <View style={styles.container}>
-              <StatusBar style="auto" />
-              <View style={styles.item}>
-                <Button
-                  title="+"
-                  titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
-                  onPress={() => addP2()}
-                />  
-              </View>
-              <View style={styles.item}>
-              <Input
-               keyboardType="numeric"
-               value={JSON.stringify(p2LifeCounter)}
-               onChangeText={value => setP2LifeCounter(Number(value))} 
-               style={{fontSize: 28, textAlign: 'center', paddingTop: 20}}
-               maxLength = {4}
-              />
-              </View>
-              <View style={styles.item}>
-              <Button
-                title="-"
-                titleStyle={{ fontWeight: 'bold', fontSize: 32 }}
-                onPress={() => subtrackP2()}
-              />
-              </View>
-            </View>
-          </Card>
-
-          <Card>
-          <Card.Title>Coin Flip</Card.Title>
-            <Card.Divider />
-            <Text h3 style={{ marginBottom: 10, textAlign : "center" }}>
-              {coin}
-            </Text>
-            <Button
-              buttonStyle={{
-                borderRadius: 0,
-                marginLeft: 0,
-                marginRight: 0,
-                marginBottom: 0,
-              }}
-              title="Flip Coin"
-              disabled={coin == "FLIPPING..."}
-              onPress={() => flipCoin()}
-            />
-          </Card>
-      </>
+      { !isTableTop && 
+      <TableTop />
       }  
-      
       </View>
-      
-    </ScrollView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  values: {
+  modeWrapper: {
     paddingTop: 50,
   },
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start', // if you want to fill rows left to right
-    backgroundColor: '#fff',    
-  },
-  controllContainer: {
-    display:"none"
+  modeBtnGroup: {
+    marginBottom: 20, 
+    height: 75
   },
   subHeader: {
     backgroundColor : "#2089dc",
@@ -341,15 +200,4 @@ const styles = StyleSheet.create({
     paddingVertical : 5,
     marginBottom : 10
   },
-  item: {
-    width: '33%', // is 50% of container width
-    padding: 10
-  },
-  diceValue: {
-    textAlign : "center",
-    paddingVertical : 5,
-    marginBottom : 10,
-    color: 'black'
-  }
 });
-
