@@ -166,6 +166,6 @@ const styles = StyleSheet.create({
       marginBottom: 100, 
       height: 100
     }
-  });
+});
 
 export default TableTop
