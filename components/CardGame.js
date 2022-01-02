@@ -64,20 +64,20 @@ const CardGame = () => {
               />  
             </View>
             <View style={styles.row}>
-            <Input
-              keyboardType="numeric"
-              value={JSON.stringify(p1LifeCounter)}
-              onChangeText={value => setP1LifeCounter(Number(value))} 
-              style={styles.lifeInput}
-              maxLength = {4}
-            />
+              <Input
+                keyboardType="numeric"
+                value={JSON.stringify(p1LifeCounter)}
+                onChangeText={value => setP1LifeCounter(Number(value))} 
+                style={styles.lifeInput}
+                maxLength = {4}
+              />
             </View>
             <View style={styles.row}>
-            <Button
-              title="-"
-              titleStyle={styles.btn}
-              onPress={() => subtrackP1()}
-            />
+              <Button
+                title="-"
+                titleStyle={styles.btn}
+                onPress={() => subtrackP1()}
+              />
             </View>
           </View>
         </Card>
@@ -93,20 +93,20 @@ const CardGame = () => {
               />  
             </View>
             <View style={styles.row}>
-            <Input
-              keyboardType="numeric"
-              value={JSON.stringify(p2LifeCounter)}
-              onChangeText={value => setP2LifeCounter(Number(value))} 
-              style={styles.lifeInput}
-              maxLength = {4}
-            />
+              <Input
+                keyboardType="numeric"
+                value={JSON.stringify(p2LifeCounter)}
+                onChangeText={value => setP2LifeCounter(Number(value))} 
+                style={styles.lifeInput}
+                maxLength = {4}
+              />
             </View>
             <View style={styles.row}>
-            <Button
-              title="-"
-              titleStyle={styles.btn}
-              onPress={() => subtrackP2()}
-            />
+              <Button
+                title="-"
+                titleStyle={styles.btn}
+                onPress={() => subtrackP2()}
+              />
             </View>
           </View>
         </Card>

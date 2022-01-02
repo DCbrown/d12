@@ -90,10 +90,10 @@ const TableTop = () => {
 
   return (
       <>
-          <View>
+        <View>
           <Text h4 style={styles.subHeader}>Saved Value: {currentSV}</Text>
-          </View>
-          <View>
+        </View>
+        <View>
           <ButtonGroup
               buttons={['D4', 'D6', 'D8', 'D10', 'D12', 'D20']}
               selectedIndex={selectedDiceIndex}
@@ -103,34 +103,34 @@ const TableTop = () => {
               }}
               containerStyle={styles.diceBtnGroup}
           />
-          </View>  
-          <View style={styles.container}>
+        </View>  
+        <View style={styles.container}>
           <View style={styles.item}>
-              <Button
-              title="+"
-              titleStyle={styles.btn}
-              onPress={() => addSV()}
-              />  
-          </View>
-          <View style={styles.item}>
-          <Text h1 style={styles.diceValue}>{dR}</Text>
+            <Button
+            title="+"
+            titleStyle={styles.btn}
+            onPress={() => addSV()}
+            />  
           </View>
           <View style={styles.item}>
-          <Button
-              title="-"
-              titleStyle={styles.btn}
-              onPress={() => subtractSV()}
-          />
+            <Text h1 style={styles.diceValue}>{dR}</Text>
           </View>
+          <View style={styles.item}>
+            <Button
+                title="-"
+                titleStyle={styles.btn}
+                onPress={() => subtractSV()}
+            />
           </View>
-          <ButtonGroup
-              buttons={['Save Value', 'Roll', 'Clear']}
-              onPress={(value) => {
-              diceOptions(value);
-              }}
-              containerStyle={styles.diceActionBtnGroup}
-          />
-      </>
+        </View>
+        <ButtonGroup
+            buttons={['Save Value', 'Roll', 'Clear']}
+            onPress={(value) => {
+            diceOptions(value);
+            }}
+            containerStyle={styles.diceActionBtnGroup}
+        />
+    </>
   )
 }
 
