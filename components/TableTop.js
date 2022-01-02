@@ -135,37 +135,37 @@ const TableTop = () => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'row',  
-    },
-    subHeader: {
-      backgroundColor : "#2089dc",
-      color : "white",
-      textAlign : "center",
-      paddingVertical : 5,
-      marginBottom : 10
-    },
-    item: {
-      width: '33%',
-      padding: 10
-    },
-    diceValue: {
-      textAlign : "center",
-      paddingVertical : 5,
-      color: 'black'
-    },
-    btn: {
-      fontWeight: 'bold', 
-      fontSize: 32
-    },
-    diceBtnGroup: {
-      marginBottom: 20, 
-      height: 75
-    },
-    diceActionBtnGroup: {
-      marginBottom: 100, 
-      height: 100
-    }
+  container: {
+    flexDirection: 'row',  
+  },
+  subHeader: {
+    backgroundColor : "#2089dc",
+    color : "white",
+    textAlign : "center",
+    paddingVertical : 5,
+    marginBottom : 10
+  },
+  item: {
+    width: '33%',
+    padding: 10
+  },
+  diceValue: {
+    textAlign : "center",
+    paddingVertical : 5,
+    color: 'black'
+  },
+  btn: {
+    fontWeight: 'bold', 
+    fontSize: 32
+  },
+  diceBtnGroup: {
+    marginBottom: 20, 
+    height: 75
+  },
+  diceActionBtnGroup: {
+    marginBottom: 100, 
+    height: 100
+  }
 });
 
 export default TableTop

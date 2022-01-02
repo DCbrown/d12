@@ -128,47 +128,47 @@ const CardGame = () => {
 }
 
 const styles = StyleSheet.create({
-    values: {
-      paddingTop: 50,
-    },
-    container: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      alignItems: 'flex-start',
-      backgroundColor: '#fff',    
-    },
-    controllContainer: {
-      display:"none"
-    },
-    subHeader: {
-      backgroundColor : "#2089dc",
-      color : "white",
-      textAlign : "center",
-      paddingVertical : 5,
-      marginBottom : 10
-    },
-    row: {
-      width: '33%',
-    },
-    diceValue: {
-      textAlign : "center",
-      paddingVertical : 5,
-      marginBottom : 10,
-      color: 'black'
-    },
-    btn: {
-      fontWeight: 'bold', 
-      fontSize: 32
-    },
-    lifeInput: {
-      fontSize: 28, 
-      textAlign: 'center', 
-      paddingTop: 20
-    },
-    coinFlipText: {
-      marginBottom: 10, 
-      textAlign : "center"
-    }
+  values: {
+    paddingTop: 50,
+  },
+  container: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    backgroundColor: '#fff',    
+  },
+  controllContainer: {
+    display:"none"
+  },
+  subHeader: {
+    backgroundColor : "#2089dc",
+    color : "white",
+    textAlign : "center",
+    paddingVertical : 5,
+    marginBottom : 10
+  },
+  row: {
+    width: '33%',
+  },
+  diceValue: {
+    textAlign : "center",
+    paddingVertical : 5,
+    marginBottom : 10,
+    color: 'black'
+  },
+  btn: {
+    fontWeight: 'bold', 
+    fontSize: 32
+  },
+  lifeInput: {
+    fontSize: 28, 
+    textAlign: 'center', 
+    paddingTop: 20
+  },
+  coinFlipText: {
+    marginBottom: 10, 
+    textAlign : "center"
+  }
 });
 
 export default CardGame
