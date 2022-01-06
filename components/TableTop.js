@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Alert } from 'react-native';
-import { Button, ButtonGroup, Text, } from 'react-native-elements';
+import { StyleSheet, View, ScrollView, Alert } from 'react-native';
+import { Button, ButtonGroup, Text, Input } from 'react-native-elements';
 
 const TableTop = () => {
   const [dR, setDR] = useState(0);
@@ -45,32 +45,11 @@ const TableTop = () => {
         case 1:
           roll(dice)
         break;
-        case 2:
-          clear()
-        break;
       }
     }
     
     const roll = (d) => {
       setDR(Math.floor(Math.random() * d) + 1);
-    }
-  
-    const clear = () => {
-      return Alert.alert(
-        "Are your sure?",
-        "Clear saved value",
-        [
-          {
-            text: "Yes",
-            onPress: () => {
-              setCurrentSV(0);
-            },
-          },
-          {
-            text: "No",
-          },
-        ]
-      );
     }
     
     const addSV = () => {
@@ -89,10 +68,31 @@ const TableTop = () => {
   
 
   return (
-      <>
+      <ScrollView>
+        <View style={styles.item}>
+            <Button
+            title="+"
+            titleStyle={styles.btn}
+            onPress={() => addSV()}
+            />  
+          </View>
         <View>
-          <Text h4 style={styles.subHeader}>Saved Value: {currentSV}</Text>
+          <Text h4 style={styles.subHeader}>Saved Value:</Text>
+          <Input
+            keyboardType="numeric"
+            value={JSON.stringify(currentSV)}
+            onChangeText={value => setCurrentSV(Number(value))} 
+            style={styles.saveInputValue}
+            maxLength = {4}
+          />
         </View>
+        <View style={styles.item}>
+            <Button
+                title="-"
+                titleStyle={styles.btn}
+                onPress={() => subtractSV()}
+            />
+          </View>
         <View>
           <ButtonGroup
               buttons={['D4', 'D6', 'D8', 'D10', 'D12', 'D20']}
@@ -104,33 +104,18 @@ const TableTop = () => {
               containerStyle={styles.diceBtnGroup}
           />
         </View>  
-        <View style={styles.container}>
-          <View style={styles.item}>
-            <Button
-            title="+"
-            titleStyle={styles.btn}
-            onPress={() => addSV()}
-            />  
-          </View>
-          <View style={styles.item}>
-            <Text h1 style={styles.diceValue}>{dR}</Text>
-          </View>
-          <View style={styles.item}>
-            <Button
-                title="-"
-                titleStyle={styles.btn}
-                onPress={() => subtractSV()}
-            />
-          </View>
-        </View>
+
+        <Text h1 style={styles.diceValue}>{dR}</Text>
+       
+
         <ButtonGroup
-            buttons={['Save Value', 'Roll', 'Clear']}
+            buttons={['Save Value', 'Roll']}
             onPress={(value) => {
             diceOptions(value);
             }}
             containerStyle={styles.diceActionBtnGroup}
         />
-    </>
+    </ScrollView>
   )
 }
 
@@ -139,20 +124,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',  
   },
   subHeader: {
-    backgroundColor : "#2089dc",
-    color : "white",
     textAlign : "center",
     paddingVertical : 5,
-    marginBottom : 10
+    marginBottom : 10,
   },
   item: {
-    width: '33%',
-    padding: 10
+    width: '100%',
+    padding: 10,
+    textAlign: "center"
   },
   diceValue: {
+    textAlign: "center",
+    paddingTop: 12,
+    paddingBottom: 14,
+    color: 'black',
+  },
+  saveInputValue: {
     textAlign : "center",
-    paddingVertical : 5,
-    color: 'black'
+    width: "10%",
+    fontSize: 32
   },
   btn: {
     fontWeight: 'bold', 
