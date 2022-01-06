@@ -104,7 +104,7 @@ const TableTop = () => {
               containerStyle={styles.diceBtnGroup}
           />
         </View>  
-
+        <Text h4 style={styles.subHeader}>Dice Value:</Text>      
         <Text h1 style={styles.diceValue}>{dR}</Text>
        
 
@@ -135,7 +135,6 @@ const styles = StyleSheet.create({
   },
   diceValue: {
     textAlign: "center",
-    paddingTop: 12,
     paddingBottom: 14,
     color: 'black',
   },
