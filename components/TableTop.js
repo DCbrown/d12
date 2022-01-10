@@ -3,10 +3,11 @@ import { StyleSheet, View, ScrollView, Alert } from 'react-native';
 import { Button, ButtonGroup, Text, Input } from 'react-native-elements';
 
 const TableTop = () => {
-  const [dR, setDR] = useState(0);
+  const [dR, setDR] = useState("0");
   const [currentSV, setCurrentSV] = useState(0);
   const [dice, setDice] = useState(4);
   const [selectedDiceIndex, setSelectedDiceIndex] = useState(0);
+  
 
   const handleSavedValue = () => {
       setCurrentSV((prev) => {
@@ -49,7 +50,10 @@ const TableTop = () => {
     }
     
     const roll = (d) => {
-      setDR(Math.floor(Math.random() * d) + 1);
+      setDR("Rolling");
+      setTimeout(()=> {
+        setDR(Math.floor(Math.random() * d) + 1);
+      }, 1000)
     }
     
     const addSV = () => {
@@ -96,6 +100,7 @@ const TableTop = () => {
         <View>
           <ButtonGroup
               buttons={['D4', 'D6', 'D8', 'D10', 'D12', 'D20']}
+              disabled={dR === "Rolling"}
               selectedIndex={selectedDiceIndex}
               onPress={(value) => {
               setSelectedDiceIndex(value);
@@ -107,14 +112,16 @@ const TableTop = () => {
         <Text h4 style={styles.subHeader}>Dice Value:</Text>      
         <Text h1 style={styles.diceValue}>{dR}</Text>
        
-
+        
         <ButtonGroup
+            disabled={dR === "Rolling"}
             buttons={['Save Value', 'Roll']}
             onPress={(value) => {
+           
             diceOptions(value);
             }}
             containerStyle={styles.diceActionBtnGroup}
-        />
+        /> 
     </ScrollView>
   )
 }
@@ -136,7 +143,6 @@ const styles = StyleSheet.create({
   diceValue: {
     textAlign: "center",
     paddingBottom: 14,
-    color: 'black',
   },
   saveInputValue: {
     textAlign : "center",

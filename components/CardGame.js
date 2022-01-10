@@ -134,15 +134,12 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    backgroundColor: '#fff',    
+    alignItems: 'flex-start',    
   },
   controllContainer: {
     display:"none"
   },
   subHeader: {
-    backgroundColor : "#2089dc",
-    color : "white",
     textAlign : "center",
     paddingVertical : 5,
     marginBottom : 10
@@ -154,7 +151,6 @@ const styles = StyleSheet.create({
     textAlign : "center",
     paddingVertical : 5,
     marginBottom : 10,
-    color: 'black'
   },
   btn: {
     fontWeight: 'bold', 
