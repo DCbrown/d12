@@ -1,19 +1,64 @@
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView, Alert } from 'react-native';
-import { Button, ButtonGroup, Text, Input } from 'react-native-elements';
+import { StyleSheet, View, ScrollView, Alert, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback } from 'react-native';
+import { ButtonGroup, Text, Input, Button } from 'react-native-elements';
+import { useTheme } from '../theme/ThemeProvider';
 
 const TableTop = () => {
-  const [dR, setDR] = useState("0");
+  const [dR, setDR] = useState(0);
   const [currentSV, setCurrentSV] = useState(0);
   const [dice, setDice] = useState(4);
   const [selectedDiceIndex, setSelectedDiceIndex] = useState(0);
   
 
+  const {colors} = useTheme();
+    
+    const subHeader = {
+        fontSize: 18,
+        color: colors.text,
+        textAlign : "center",
+        paddingVertical : 5,
+        marginBottom : 10,
+    }
+
+    const saveInputValue = {
+      textAlign : "center",
+      color: colors.text,
+      width: "10%",
+      fontSize: 32
+    }
+
+    const diceValue = {
+      color: colors.text,
+      textAlign: "center",
+      paddingBottom: 14,
+    }
+
+    const btn = {
+      backgroundColor: colors.primary,
+    }
+
+    const btnText = {
+      color: colors.text,
+    }
+
+    const containerStyle = {
+        margin: 24,
+        padding: 12,
+        borderRadius: 4,
+        borderWidth: 2,
+        borderColor: colors.primary,
+    }
+
+
   const handleSavedValue = () => {
+    setDR("Saving Dice Value");
+    setTimeout(()=> {
       setCurrentSV((prev) => {
         return prev + dR;
       });
-    }
+      setDR(0);
+    }, 500)   
+  }
   
     const selectDice = (value) => {
       switch(value) {
@@ -53,7 +98,7 @@ const TableTop = () => {
       setDR("Rolling");
       setTimeout(()=> {
         setDR(Math.floor(Math.random() * d) + 1);
-      }, 1000)
+      }, 500)
     }
     
     const addSV = () => {
@@ -76,24 +121,24 @@ const TableTop = () => {
         <View style={styles.item}>
             <Button
             title="+"
-            titleStyle={styles.btn}
+            buttonStyle={btn}
             onPress={() => addSV()}
             />  
           </View>
         <View>
-          <Text h4 style={styles.subHeader}>Saved Value:</Text>
+          <Text h4 style={ subHeader }>Saved Value:</Text>
           <Input
             keyboardType="numeric"
             value={JSON.stringify(currentSV)}
             onChangeText={value => setCurrentSV(Number(value))} 
-            style={styles.saveInputValue}
+            style={saveInputValue}
             maxLength = {4}
           />
         </View>
         <View style={styles.item}>
             <Button
                 title="-"
-                titleStyle={styles.btn}
+                buttonStyle={btn} 
                 onPress={() => subtractSV()}
             />
           </View>
@@ -106,15 +151,18 @@ const TableTop = () => {
               setSelectedDiceIndex(value);
               selectDice(value);
               }}
+              buttonStyle={btn}
               containerStyle={styles.diceBtnGroup}
+              selectedButtonStyle={btn}
           />
         </View>  
-        <Text h4 style={styles.subHeader}>Dice Value:</Text>      
-        <Text h1 style={styles.diceValue}>{dR}</Text>
+        <Text h4 style={subHeader}>Dice Value:</Text>      
+        <Text h1 style={diceValue}>{dR}</Text>
        
         
         <ButtonGroup
-            disabled={dR === "Rolling"}
+            disabled={dR === "Rolling" || dR === "Saving Value"}
+            buttonStyle={btn}
             buttons={['Save Value', 'Roll']}
             onPress={(value) => {
            

@@ -10,6 +10,7 @@ export const Screen = (props) => {
 
     const containerStyle = {
         backgroundColor: colors.background,
+        color: colors.text
     };
 
     return (

@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
-import { StyleSheet, View } from 'react-native';
-import { ButtonGroup, Text} from 'react-native-elements';
+import { StyleSheet, View} from 'react-native';
+import { ButtonGroup, Text  } from 'react-native-elements';
 import CardGame from './components/TableTop';
 import TableTop from './components/CardGame';
 import { Toggle } from './components/Toggle';
 import { Screen } from './components/screen';
+import { Message } from './components/message';
+import {useTheme} from './theme/ThemeProvider';
 
 import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
 import { ThemeProvider } from './theme/ThemeProvider';
@@ -30,49 +32,16 @@ export default function App() {
     }
   }
 
-  const scheme = useColorScheme();
-  const Stack = createStackNavigator();
-  const MyDarkTheme = {
-    dark: true,
-    colors: {
-      primary: "#9933FF",
-      backgroundColor: "#000023",
-      card: "#000028",
-      text: "#ffffff",
-      border: "#000028",
-      notification: "#9933FF"
-    }
-  }
-
-  const colorScheme = Appearance.getColorScheme();
-  if (colorScheme === 'dark') {
-    // Use dark color scheme
-    const MyDarkTheme = {
-      dark: true,
-      colors: {
-        primary: "#9933FF",
-        backgroundColor: "#000023",
-        card: "#000028",
-        text: "#ffffff",
-        border: "#000028",
-        notification: "#9933FF"
-      }
-    }
-    
-  }
-
-  
-
 return (
   <>
     <AppearanceProvider>
     <ThemeProvider>
     <Screen>
     <StatusBar/>
-     
       <View style={styles.modeWrapper}>
         <Text h4 style={styles.subHeader}>Mode</Text>
         <Toggle />
+      
         <ButtonGroup
           buttons={['Table Top', 'Card Game']}
           selectedIndex={selectedModeIndex}
