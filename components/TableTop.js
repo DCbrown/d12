@@ -35,6 +35,12 @@ const TableTop = () => {
 
     const btn = {
       backgroundColor: colors.primary,
+      color: colors.textBtn,
+    }
+
+    const btnDisbaled = {
+      backgroundColor: colors.disabledBtn,
+      color: colors.disabledBackground,
     }
 
     const btnText = {
@@ -145,6 +151,8 @@ const TableTop = () => {
         <View>
           <ButtonGroup
               buttons={['D4', 'D6', 'D8', 'D10', 'D12', 'D20']}
+              disabledStyle={btnDisbaled}
+              disabledTextStyle={btnDisbaled}
               disabled={dR === "Rolling"}
               selectedIndex={selectedDiceIndex}
               onPress={(value) => {
@@ -152,6 +160,7 @@ const TableTop = () => {
               selectDice(value);
               }}
               buttonStyle={btn}
+              textStyle={btn} 
               containerStyle={styles.diceBtnGroup}
               selectedButtonStyle={btn}
           />
@@ -163,6 +172,9 @@ const TableTop = () => {
         <ButtonGroup
             disabled={dR === "Rolling" || dR === "Saving Value"}
             buttonStyle={btn}
+            disabledStyle={btnDisbaled}
+            disabledTextStyle={btnDisbaled}
+            textStyle={{color:"white"}} 
             buttons={['Save Value', 'Roll']}
             onPress={(value) => {
            
