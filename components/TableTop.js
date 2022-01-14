@@ -4,7 +4,7 @@ import { ButtonGroup, Text, Input, Button } from 'react-native-elements';
 import { useTheme } from '../theme/ThemeProvider';
 
 const TableTop = () => {
-  const [dR, setDR] = useState(0);
+  const [dR, setDR] = useState("Dice Ready");
   const [currentSV, setCurrentSV] = useState(0);
   const [dice, setDice] = useState(4);
   const [selectedDiceIndex, setSelectedDiceIndex] = useState(0);
@@ -62,7 +62,7 @@ const TableTop = () => {
       setCurrentSV((prev) => {
         return prev + dR;
       });
-      setDR(0);
+      setDR("Dice Ready");
     }, 500)   
   }
   
@@ -170,7 +170,7 @@ const TableTop = () => {
        
         
         <ButtonGroup
-            disabled={dR === "Rolling" || dR === "Saving Value"}
+            disabled={dR === "Rolling" || dR === "Saving Dice Value"}
             buttonStyle={btn}
             disabledStyle={btnDisbaled}
             disabledTextStyle={btnDisbaled}

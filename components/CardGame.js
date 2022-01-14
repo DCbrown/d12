@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Card, Text, Input, } from 'react-native-elements';
+import { useTheme } from '../theme/ThemeProvider';
 
 const CardGame = () => {
   const [p1LifeCounter, setP1LifeCounter] = useState(20);
@@ -50,15 +51,59 @@ const CardGame = () => {
       }, 3000);  
     }
 
+    const {colors} = useTheme();
+    
+    const subHeader = {
+        fontSize: 18,
+        color: colors.text,
+        textAlign : "center",
+        paddingVertical : 5,
+        marginBottom : 10,
+    }
+
+    const saveInputValue = {
+      marginBottom: 10, 
+      textAlign : "center",
+      color: colors.text,
+      fontSize: 28, 
+      paddingTop: 20
+    }
+
+    const diceValue = {
+      color: colors.text,
+      fontSize: 28, 
+      textAlign: 'center', 
+      paddingTop: 20
+    }
+
+    const btn = {
+      backgroundColor: colors.primary,
+      color: colors.textBtn,
+    }
+
+    const btnDisbaled = {
+      backgroundColor: colors.disabledBtn,
+      color: colors.disabledBackground,
+    }
+
+    const btnText = {
+      color: colors.text,
+    }
+
+    const containerStyle = {
+        backgroundColor: colors.backgroundCard,
+    }
+
   return (
     <ScrollView>
-      <Card>
-          <Card.Title>P1 Life Counter</Card.Title>
+      <Card containerStyle={containerStyle}>
+          <Card.Title style={subHeader}>P1 Life Counter</Card.Title>
           <Card.Divider />
           <View style={styles.container}>
             <View style={styles.row}>
               <Button
                 title="+"
+                buttonStyle={btn}
                 titleStyle={styles.btn}
                 onPress={() => addP1()}
               />  
@@ -68,12 +113,14 @@ const CardGame = () => {
                 keyboardType="numeric"
                 value={JSON.stringify(p1LifeCounter)}
                 onChangeText={value => setP1LifeCounter(Number(value))} 
-                style={styles.lifeInput}
+               
+                style={saveInputValue}
                 maxLength = {4}
               />
             </View>
             <View style={styles.row}>
               <Button
+                buttonStyle={btn}
                 title="-"
                 titleStyle={styles.btn}
                 onPress={() => subtrackP1()}
@@ -81,12 +128,13 @@ const CardGame = () => {
             </View>
           </View>
         </Card>
-        <Card>
-          <Card.Title>P2 Life Counter</Card.Title>
+        <Card containerStyle={containerStyle}>
+          <Card.Title style={subHeader}>P2 Life Counter</Card.Title>
           <Card.Divider />
           <View style={styles.container}>
             <View style={styles.row}>
               <Button
+                buttonStyle={btn}
                 title="+"
                 titleStyle={styles.btn}
                 onPress={() => addP2()}
@@ -97,12 +145,15 @@ const CardGame = () => {
                 keyboardType="numeric"
                 value={JSON.stringify(p2LifeCounter)}
                 onChangeText={value => setP2LifeCounter(Number(value))} 
-                style={styles.lifeInput}
+                style={diceValue}
                 maxLength = {4}
+              
+                style={saveInputValue}
               />
             </View>
             <View style={styles.row}>
               <Button
+                buttonStyle={btn}
                 title="-"
                 titleStyle={styles.btn}
                 onPress={() => subtrackP2()}
@@ -111,13 +162,14 @@ const CardGame = () => {
           </View>
         </Card>
 
-        <Card>
-          <Card.Title>Coin Flip</Card.Title>
+        <Card containerStyle={containerStyle}>
+          <Card.Title style={subHeader}>Coin Flip</Card.Title>
           <Card.Divider />
-          <Text h3 style={styles.coinFlipText}>
+          <Text h3 h3Style={saveInputValue}>
             {coin}
           </Text>
           <Button
+            buttonStyle={btn}
             title="Flip Coin"
             disabled={coin == "FLIPPING..."}
             onPress={() => flipCoin()}

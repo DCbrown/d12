@@ -1,6 +1,7 @@
 // Light theme colors
 export const lightColors = {
     background: '#FFFFFF',
+    backgroundCard: '#FFFFFF',
     primary: '#208bdc',
     text: '#121212',
     textBtn: '#000000',
@@ -11,6 +12,7 @@ export const lightColors = {
   // Dark theme colors
   export const darkColors = {
     background: '#121212',
+    backgroundCard: '#4d4c4f',
     primary: '#512DA8',
     textBtn: '#877ea8',
     text: '#FFFFFF',

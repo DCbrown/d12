@@ -24,7 +24,8 @@ const Mode = () => {
     }
     
     const btn = {
-        backgroundColor: colors.primary,
+      backgroundColor: colors.primary,
+      color: colors.textBtn,
     }
 
     const header = {
