@@ -18,9 +18,11 @@ export const Toggle = () => {
     }
 
     return (
-        <View style={{flexDirection: 'row'}}>
-            <Switch value={isDark} onValueChange={toggleScheme}/>
-            <Text style={{fontSize: 25, paddingLeft: 5}}>{text}</Text>
+        <View style={{width: "100%"}}>
+            <View style={{flexDirection:"row", alignSelf: 'flex-end'}} >
+                <Switch value={isDark} onValueChange={toggleScheme}/>
+                <Text style={{fontSize: 25, paddingLeft: 5}}>{text}</Text>
+            </View>
         </View>
     );
 }

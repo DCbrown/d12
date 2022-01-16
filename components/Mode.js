@@ -40,8 +40,10 @@ const Mode = () => {
     return (
         <>
             <View style={styles.modeWrapper}>
-                <Text h4 style={header}>Mode</Text>
-                <Toggle />
+                <Text h4 style={header}>D12 Table Top</Text>
+               
+                 <Toggle />
+                
                 <ButtonGroup
                 buttons={['Table Top', 'Card Game']}
                 selectedIndex={selectedModeIndex}
@@ -77,6 +79,7 @@ const styles = StyleSheet.create({
       paddingVertical : 5,
       marginBottom : 10
     },
+ 
   });
   
 
