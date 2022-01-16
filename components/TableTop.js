@@ -4,12 +4,12 @@ import { ButtonGroup, Text, Input, Button } from 'react-native-elements';
 import { useTheme } from '../theme/ThemeProvider';
 
 const TableTop = () => {
-  const [dR, setDR] = useState("Dice Ready");
+  const [dR, setDR] = useState(0);
+  const [diceMsg, setDiceMsg] = useState("Ready to Roll");
   const [currentSV, setCurrentSV] = useState(0);
   const [dice, setDice] = useState(4);
   const [selectedDiceIndex, setSelectedDiceIndex] = useState(0);
   
-
   const {colors} = useTheme();
     
     const subHeader = {
@@ -43,28 +43,16 @@ const TableTop = () => {
       color: colors.disabledBackground,
     }
 
-    const btnText = {
-      color: colors.text,
+    const handleSavedValue = () => {
+      setDiceMsg("Saving Dice Value");
+      setTimeout(()=> {
+        setCurrentSV((prev) => {
+          return prev + dR;
+        });
+        setDiceMsg("Ready to Roll");
+        setDR(0);
+      }, 500)   
     }
-
-    const containerStyle = {
-        margin: 24,
-        padding: 12,
-        borderRadius: 4,
-        borderWidth: 2,
-        borderColor: colors.primary,
-    }
-
-
-  const handleSavedValue = () => {
-    setDR("Saving Dice Value");
-    setTimeout(()=> {
-      setCurrentSV((prev) => {
-        return prev + dR;
-      });
-      setDR("Dice Ready");
-    }, 500)   
-  }
   
     const selectDice = (value) => {
       switch(value) {
@@ -101,9 +89,10 @@ const TableTop = () => {
     }
     
     const roll = (d) => {
-      setDR("Rolling");
+      setDiceMsg("Rolling");
       setTimeout(()=> {
         setDR(Math.floor(Math.random() * d) + 1);
+        setDiceMsg("");
       }, 500)
     }
     
@@ -124,7 +113,7 @@ const TableTop = () => {
 
   return (
       <ScrollView>
-        <View style={styles.item}>
+        <View style={styles.wrapper}>
             <Button
             title="+"
             buttonStyle={btn}
@@ -141,7 +130,7 @@ const TableTop = () => {
             maxLength = {4}
           />
         </View>
-        <View style={styles.item}>
+        <View style={styles.wrapper}>
             <Button
                 title="-"
                 buttonStyle={btn} 
@@ -153,7 +142,7 @@ const TableTop = () => {
               buttons={['D4', 'D6', 'D8', 'D10', 'D12', 'D20']}
               disabledStyle={btnDisbaled}
               disabledTextStyle={btnDisbaled}
-              disabled={dR === "Rolling"}
+              disabled={diceMsg === "Rolling"}
               selectedIndex={selectedDiceIndex}
               onPress={(value) => {
               setSelectedDiceIndex(value);
@@ -166,18 +155,17 @@ const TableTop = () => {
           />
         </View>  
         <Text h4 style={subHeader}>Dice Value:</Text>      
-        <Text h1 style={diceValue}>{dR}</Text>
-       
-        
+        <Text h1 style={diceValue}>
+          { diceMsg === "Rolling" || diceMsg === "Saving Dice Value" || diceMsg === "Ready to Roll" ? diceMsg : dR }
+        </Text>   
         <ButtonGroup
-            disabled={dR === "Rolling" || dR === "Saving Dice Value"}
+            disabled={diceMsg === "Rolling" || diceMsg === "Saving Dice Value"}
             buttonStyle={btn}
             disabledStyle={btnDisbaled}
             disabledTextStyle={btnDisbaled}
             textStyle={{color:"white"}} 
             buttons={['Save Value', 'Roll']}
             onPress={(value) => {
-           
             diceOptions(value);
             }}
             containerStyle={styles.diceActionBtnGroup}
@@ -195,7 +183,7 @@ const styles = StyleSheet.create({
     paddingVertical : 5,
     marginBottom : 10,
   },
-  item: {
+  wrapper: {
     width: '100%',
     padding: 10,
     textAlign: "center"

@@ -81,15 +81,6 @@ const CardGame = () => {
       color: colors.textBtn,
     }
 
-    const btnDisbaled = {
-      backgroundColor: colors.disabledBtn,
-      color: colors.disabledBackground,
-    }
-
-    const btnText = {
-      color: colors.text,
-    }
-
     const containerStyle = {
         backgroundColor: colors.backgroundCard,
     }

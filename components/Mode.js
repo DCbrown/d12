@@ -35,13 +35,13 @@ const Mode = () => {
         paddingVertical : 5,
         marginBottom : 10
     }
+    
 
     return (
         <>
             <View style={styles.modeWrapper}>
                 <Text h4 style={header}>Mode</Text>
                 <Toggle />
-            
                 <ButtonGroup
                 buttons={['Table Top', 'Card Game']}
                 selectedIndex={selectedModeIndex}
