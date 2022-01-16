@@ -41,9 +41,9 @@ const CardGame = () => {
       setCoin("FLIPPING...")
   
       setTimeout(() => {
-        let coin = Math.floor(Math.random() * 2);
+        let coin = Math.floor(Math.random() * 6) + 1;
   
-        if (coin == 1 ) {
+        if (coin % 2 == 0 ) {
           setCoin("HEADS");
         } else {
           setCoin("TAILS");
