@@ -86,7 +86,7 @@ const CardGame = () => {
     }
 
   return (
-    <ScrollView>
+    <ScrollView style={{height:"100%"}}>
       <Card containerStyle={containerStyle}>
           <Card.Title style={subHeader}>P1 Life Counter</Card.Title>
           <Card.Divider />

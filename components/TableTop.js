@@ -112,7 +112,7 @@ const TableTop = () => {
   
 
   return (
-      <ScrollView>
+      <ScrollView height="100%">
         <View style={styles.wrapper}>
             <Button
             title="+"
