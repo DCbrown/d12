@@ -101,10 +101,10 @@ const CardGame = () => {
             </View>
             <View style={styles.row}>
               <Input
-                keyboardType="numeric"
+                keyboardType={"phone-pad"}
                 value={JSON.stringify(p1LifeCounter)}
                 onChangeText={value => setP1LifeCounter(Number(value))} 
-               
+                number-pad
                 style={saveInputValue}
                 maxLength = {4}
               />
@@ -133,7 +133,7 @@ const CardGame = () => {
             </View>
             <View style={styles.row}>
               <Input
-                keyboardType="numeric"
+                keyboardType={"phone-pad"}
                 value={JSON.stringify(p2LifeCounter)}
                 onChangeText={value => setP2LifeCounter(Number(value))} 
                 style={diceValue}

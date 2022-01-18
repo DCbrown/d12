@@ -123,7 +123,7 @@ const TableTop = () => {
         <View>
           <Text h4 style={ subHeader }>Saved Value:</Text>
           <Input
-            keyboardType="numeric"
+            keyboardType={"phone-pad"}
             value={JSON.stringify(currentSV)}
             onChangeText={value => setCurrentSV(Number(value))} 
             style={saveInputValue}
