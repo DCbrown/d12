@@ -86,7 +86,7 @@ const CardGame = () => {
     }
 
   return (
-    <ScrollView style={{height:"100%"}}>
+    <>
       <Card containerStyle={containerStyle}>
           <Card.Title style={subHeader}>P1 Life Counter</Card.Title>
           <Card.Divider />
@@ -166,7 +166,11 @@ const CardGame = () => {
             onPress={() => flipCoin()}
           />
         </Card>
-    </ScrollView>
+        <Text style={{display: "none"}}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer rhoncus pellentesque risus. Praesent at sodales arcu, quis faucibus mi. Fusce tristique consectetur lacus, vitae ultrices arcu lacinia in. Nullam vel mi facilisis, iaculis erat vitae, faucibus eros. Nunc vel pretium quam. Vivamus quis fringilla magna. Praesent venenatis, nibh vel accumsan finibus, nisl lectus lacinia odio, non tempus lectus est vel ex. In magna augue, cursus non commodo at, sodales eu mi. Morbi fringilla ultrices urna, in bibendum lorem laoreet vitae. Vestibulum laoreet erat vel nulla commodo finibus. Phasellus quis velit a lorem laoreet tincidunt id vel nunc. Cras semper facilisis orci, in semper orci. Sed blandit molestie eros, eu tempor metus dignissim quis. Donec ex leo, varius eget lorem nec, ultricies ultricies elit. Ut tristique lacus et magna gravida placerat.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer rhoncus pellentesque risus. Praesent at sodales arcu, quis faucibus mi. Fusce tristique consectetur lacus, vitae ultrices arcu lacinia in. Nullam vel mi facilisis, iaculis erat vitae, faucibus eros. 
+              </Text>
+    </>
   )
 }
 

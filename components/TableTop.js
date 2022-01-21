@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView, Alert, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Alert, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback } from 'react-native';
 import { ButtonGroup, Text, Input, Button } from 'react-native-elements';
 import { useTheme } from '../theme/ThemeProvider';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const TableTop = () => {
   const [dR, setDR] = useState(0);
@@ -112,7 +113,7 @@ const TableTop = () => {
   
 
   return (
-      <ScrollView height="100%">
+      <>
         <View style={styles.wrapper}>
             <Button
             title="+"
@@ -170,7 +171,7 @@ const TableTop = () => {
             }}
             containerStyle={styles.diceActionBtnGroup}
         /> 
-    </ScrollView>
+    </>
   )
 }
 

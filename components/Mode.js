@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import { ButtonGroup, Text  } from 'react-native-elements';
 import CardGame from '../components/TableTop';
 import TableTop from '../components/CardGame';
 import { Toggle } from '../components/Toggle';
 import {useTheme} from '../theme/ThemeProvider';
+import { Dimensions } from 'react-native';
+
 
 const Mode = () => {
     const [isCardGameMode, setisCardGameMode] = useState(true);
     const [selectedModeIndex, setSelectedModeIndex] = useState(0);
     
     const {colors} = useTheme();
+    
+    const windowHeight = Dimensions.get('window').height + 90;
 
     const selectMode = (value) => {
       switch(value) {
@@ -57,9 +61,11 @@ const Mode = () => {
                 containerStyle={styles.modeBtnGroup}
                 />
             </View>
-            <View>
-                { isCardGameMode ? <CardGame /> : <TableTop />}
-            </View>
+            
+              <ScrollView style={{flexGrow: 1}} contentContainerStyle={{height: windowHeight}} >
+              { isCardGameMode ? <CardGame /> : <TableTop />} 
+              </ScrollView>  
+           
         </>
     )
 }

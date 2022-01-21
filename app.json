@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "d12",
-    "slug": "d12",
+    "name": "D12",
+    "slug": "D12",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/adaptive-icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
