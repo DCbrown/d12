@@ -1,31 +1,15 @@
 import React, { useState } from "react";
 import {View, StyleSheet, ScrollView} from 'react-native';
-import { ButtonGroup, Text  } from 'react-native-elements';
-import CardGame from '../components/TableTop';
-import TableTop from '../components/CardGame';
-import { Toggle } from '../components/Toggle';
+import { Text } from 'react-native-elements';
+import TableTop from './TableTop';
+import { Toggle } from './Toggle';
 import {useTheme} from '../theme/ThemeProvider';
 import { Dimensions } from 'react-native';
 
-
-const Mode = () => {
-    const [isCardGameMode, setisCardGameMode] = useState(true);
-    const [selectedModeIndex, setSelectedModeIndex] = useState(0);
-    
+const Home = () => {  
     const {colors} = useTheme();
     
     const windowHeight = Dimensions.get('window').height + 90;
-
-    const selectMode = (value) => {
-      switch(value) {
-        case 0:
-          setisCardGameMode(true);
-        break;
-        case 1:
-          setisCardGameMode(false);
-        break;
-      }
-    }
     
     const btn = {
       backgroundColor: colors.primary,
@@ -45,25 +29,11 @@ const Mode = () => {
         <>
             <View style={styles.modeWrapper}>
                 <Text h4 style={header}>D12 Table Top</Text>
-               
                  <Toggle />
-                
-                <ButtonGroup
-                buttons={['Table Top', 'Card Game']}
-                selectedIndex={selectedModeIndex}
-                buttonStyle={btn}
-                selectedButtonStyle={btn}
-                textStyle={btn} 
-                onPress={(value) => {
-                    setSelectedModeIndex(value);
-                    selectMode(value);
-                }}
-                containerStyle={styles.modeBtnGroup}
-                />
             </View>
             
               <ScrollView style={{flexGrow: 1}} contentContainerStyle={{height: windowHeight}} >
-              { isCardGameMode ? <CardGame /> : <TableTop />} 
+               <TableTop />
               </ScrollView>  
            
         </>
@@ -89,4 +59,4 @@ const styles = StyleSheet.create({
   });
   
 
-export default Mode
+export default Home

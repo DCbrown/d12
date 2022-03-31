@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from "react";
 import { Screen } from './components/screen';
-import Mode from './components/Mode';
+import Home from './components/Home';
 import { AppearanceProvider } from 'react-native-appearance';
 import { ThemeProvider } from './theme/ThemeProvider';
 
@@ -12,7 +12,7 @@ return (
       <ThemeProvider>
         <Screen>
           <StatusBar/>
-          <Mode/>
+          <Home/>
         </Screen>
       </ThemeProvider>
     </AppearanceProvider>
