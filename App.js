@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { 
+  Button, 
+  DefaultTheme, 
+  Provider as PaperProvider,
   Snackbar,
   Modal, 
   Portal, 
@@ -8,7 +10,8 @@ import {
   FAB, 
   TextInput, 
   Divider, 
-  Appbar
+  Appbar,
+  Dialog
 } from "react-native-paper";
 import {
   View,
@@ -32,6 +35,10 @@ export default function App() {
   const [modifier, setModifier] = React.useState(0);
   const [dR, setDR] = useState(0);
   const [logs, setLogs] = useState([]);
+
+  const [visible, setVisible] = React.useState(false);
+
+  const hideDialog = () => setVisible(false);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -72,12 +79,22 @@ export default function App() {
     }, 1000)
   };
 
+  const removeAllLogs = () => {
+    setLogs([]);
+    hideDialog();
+    setIsSnackBarVisible(true);
+    setSnackBarMsg("All Dice Logs Deleted");
+    setTimeout(() => {
+      setIsSnackBarVisible(false);
+    }, 1000);
+  }
+
   const onToggleSnackBar = () => {
     setIsSnackBarVisible(true);
     setSnackBarMsg("Dice Log Added");
     setTimeout(() => {
       setIsSnackBarVisible(false);
-    }, 1000)
+    }, 1000);
   } 
 
   const containerStyle = { backgroundColor: "white", padding: 20 };
@@ -89,6 +106,12 @@ export default function App() {
           <Appbar.Content title={<Doorway width={40} height={40} />} />
         </Appbar.Header>
 
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          <Dialog.Content>
+          <Text style={styles.dialogTxt}>Are you sure?</Text>
+            <Button style={styles.dialogDeleteBtn} mode="contained" onPress={() => removeAllLogs()}>Delete All Logs</Button>
+          </Dialog.Content>
+        </Dialog>
         <Modal
           style={styles.modal}
           visible={isModalvisible}
@@ -172,6 +195,11 @@ export default function App() {
                   );
                 })
               : null}
+              {logs < 1 ? null : (
+              <Button style={styles.deleteAllBtn} icon="delete" mode="contained" onPress={() => setVisible(true)}>
+                Delete All Logs
+              </Button>
+            )}
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -194,6 +222,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginLeft: 20,
     marginRight: 20,
+  },
+  deleteAllBtn: {
+    marginTop: 25
+  },
+  dialogTxt: {
+    textAlign: "center", 
+    marginBottom: 10
+  },
+  dialogDeleteBtn: {
+    backgroundColor: "red"
   },
   diceMsg: {
     textAlign: "center", 
