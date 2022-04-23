@@ -161,9 +161,7 @@ export default function App() {
                           })()}
                           <Text style={styles.diceResults}>
                             {log.log}{" "}
-                            <Text
-                              style={styles.sum}
-                            >
+                            <Text style={styles.sum}>
                               {log.sum}
                             </Text>
                           </Text>
