@@ -162,7 +162,7 @@ export default function App() {
                           <Text style={styles.diceResults}>
                             {log.log}{" "}
                             <Text
-                              style={{ color: "#f1c40f", fontWeight: "bold" }}
+                              style={styles.sum}
                             >
                               {log.sum}
                             </Text>
@@ -200,6 +200,10 @@ const styles = StyleSheet.create({
   diceMsg: {
     textAlign: "center", 
     paddingTop: 75
+  },
+  sum: {
+    color: "#f1c40f", 
+    fontWeight: "bold"
   },
   divider: {
     marginTop: 20
