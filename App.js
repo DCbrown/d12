@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { 
-  Button, 
-  DefaultTheme, 
+import {
+  Button,
+  DefaultTheme,
   Provider as PaperProvider,
   Snackbar,
-  Modal, 
-  Portal, 
-  Text, 
-  FAB, 
-  TextInput, 
-  Divider, 
+  Modal,
+  Portal,
+  Text,
+  FAB,
+  TextInput,
+  Divider,
   Appbar,
-  Dialog
+  Dialog,
 } from "react-native-paper";
 import {
   View,
@@ -76,7 +76,7 @@ export default function App() {
     setSnackBarMsg("Dice Log Deleted");
     setTimeout(() => {
       setIsSnackBarVisible(false);
-    }, 1000)
+    }, 1000);
   };
 
   const removeAllLogs = () => {
@@ -87,7 +87,7 @@ export default function App() {
     setTimeout(() => {
       setIsSnackBarVisible(false);
     }, 1000);
-  }
+  };
 
   const onToggleSnackBar = () => {
     setIsSnackBarVisible(true);
@@ -95,7 +95,7 @@ export default function App() {
     setTimeout(() => {
       setIsSnackBarVisible(false);
     }, 1000);
-  } 
+  };
 
   const containerStyle = { backgroundColor: "white", padding: 20 };
 
@@ -108,8 +108,14 @@ export default function App() {
 
         <Dialog visible={visible} onDismiss={hideDialog}>
           <Dialog.Content>
-          <Text style={styles.dialogTxt}>Are you sure?</Text>
-            <Button style={styles.dialogDeleteBtn} mode="contained" onPress={() => removeAllLogs()}>Delete All Logs</Button>
+            <Text style={styles.dialogTxt}>Are you sure?</Text>
+            <Button
+              style={styles.dialogDeleteBtn}
+              mode="contained"
+              onPress={() => removeAllLogs()}
+            >
+              Delete All Logs
+            </Button>
           </Dialog.Content>
         </Dialog>
         <Modal
@@ -125,8 +131,12 @@ export default function App() {
               style={styles.input}
               value={modifier.toString().replace(/^0+/, "")}
               maxLength={4}
-              keyboardType={"phone-pad"}
-              onChangeText={(modifier) => setModifier(modifier)}
+              keyboardType={
+                Platform.OS === "android" ? "numeric" : "number-pad"
+              }
+              onChangeText={(modifier) =>
+                setModifier(modifier.replace(/[^0-9]/g, ""))
+              }
             />
           </View>
           <Text style={styles.subText}>Then select a dice</Text>
@@ -148,7 +158,13 @@ export default function App() {
         <ScrollView style={styles.scrollView}>
           <View style={styles.diceList}>
             {logs < 1 ? null : (
-              <Text style={styles.diceMsg}>
+              <Text
+                style={
+                  Platform.OS === "android"
+                    ? styles.diceMsgAndroid
+                    : styles.diceMsgiOS
+                }
+              >
                 Hold down dice roll for 2 seconds to remove from log
               </Text>
             )}
@@ -183,10 +199,7 @@ export default function App() {
                             }
                           })()}
                           <Text style={styles.diceResults}>
-                            {log.log}{" "}
-                            <Text style={styles.sum}>
-                              {log.sum}
-                            </Text>
+                            {log.log} <Text style={styles.sum}>{log.sum}</Text>
                           </Text>
                         </View>
                       </TouchableOpacity>
@@ -195,17 +208,20 @@ export default function App() {
                   );
                 })
               : null}
-              {logs < 1 ? null : (
-              <Button style={styles.deleteAllBtn} icon="delete" mode="contained" onPress={() => setVisible(true)}>
+            {logs < 1 ? null : (
+              <Button
+                style={styles.deleteAllBtn}
+                icon="delete"
+                mode="contained"
+                onPress={() => setVisible(true)}
+              >
                 Delete All Logs
               </Button>
             )}
           </View>
         </ScrollView>
       </SafeAreaView>
-      <Snackbar visible={isSnackBarvisible}>
-        {snackBarMsg}
-      </Snackbar>
+      <Snackbar visible={isSnackBarvisible}>{snackBarMsg}</Snackbar>
       <FAB
         style={styles.fab}
         small
@@ -224,25 +240,29 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   deleteAllBtn: {
-    marginTop: 25
+    marginTop: 25,
   },
   dialogTxt: {
-    textAlign: "center", 
-    marginBottom: 10
+    textAlign: "center",
+    marginBottom: 10,
   },
   dialogDeleteBtn: {
-    backgroundColor: "red"
+    backgroundColor: "red",
   },
-  diceMsg: {
-    textAlign: "center", 
-    paddingTop: 75
+  diceMsgAndroid: {
+    textAlign: "center",
+    paddingTop: 100,
+  },
+  diceMsgiOS: {
+    textAlign: "center",
+    paddingTop: 75,
   },
   sum: {
-    color: "#f1c40f", 
-    fontWeight: "bold"
+    color: "#f1c40f",
+    fontWeight: "bold",
   },
   divider: {
-    marginTop: 20
+    marginTop: 20,
   },
   button: {
     width: 60,
@@ -264,15 +284,15 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   subText: {
-    textAlign: 'center',
-    marginTop: 10
+    textAlign: "center",
+    marginTop: 10,
   },
   diceRow: {
-    flexDirection: "row", 
-    flex: 1
+    flexDirection: "row",
+    flex: 1,
   },
   diceList: {
-    paddingBottom: 50
+    paddingBottom: 50,
   },
   diceResults: {
     alignSelf: "flex-end",
@@ -282,7 +302,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   diceContainer: {
-    justifyContent: 'center',
-    alignItems: 'center', 
-  }
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
